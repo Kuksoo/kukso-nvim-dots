@@ -39,4 +39,27 @@ return {
 			highlight = { enable = true },
 		},
 	},
+	{
+    "HiPhish/rainbow-delimiters.nvim",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function()
+        local rb = require('rainbow-delimiters')
+        require('rainbow-delimiters.setup').setup({
+            strategy = {
+                [''] = rb.strategy['global'],
+            },
+            query = {
+                [''] = 'rainbow-delimiters',
+            },
+            highlight = {
+                'RainbowDelimiterYellow',
+                'RainbowDelimiterViolet',
+                'RainbowDelimiterGreen',
+            },
+        })
+        vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = '#EBCB8B' })
+        vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = '#B48EAD' })
+        vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen',  { fg = '#A3BE8C' })
+    end,
+	},
 }

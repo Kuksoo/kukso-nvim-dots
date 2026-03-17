@@ -17,7 +17,7 @@ return {
             local lspconfig = require('lspconfig')
 
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "bashls", "pyright" },
+                ensure_installed = { "rust_analyzer", "lua_ls", "bashls", "pyright" },
                 handlers = {
                     function(server_name)
                         local opts = { capabilities = capabilities }
