@@ -31,8 +31,12 @@ return {
         "saghen/blink.cmp",
         version = "*",
         opts = {
-            keymap = { preset = 'default' },
-            appearance = { use_nvim_mini_icons = true },
+            keymap = { 
+				preset = 'none',
+				['<Tab>'] = { 'accept', 'fallback' },
+                ['<C-Tab>'] = { 'select_next', 'fallback' },
+                ['<S-Tab>'] = { 'select_prev', 'fallback' },
+			},
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
             },
