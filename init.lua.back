@@ -1,0 +1,209 @@
+-- Загрузка Lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+-- Табуляция
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = false
+
+-- Установка Lazy.nvim если таковой не нашелся
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+
+-- Вызываем Lazy.nvim
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup({
+	-- Плагины, темы и т.д.
+	spec = {
+		-- Темы
+		{ "Mofiqul/dracula.nvim" },
+
+		-- Themery (меню тем)
+		{
+			"zaldih/themery.nvim",
+			lazy = false,
+			config = function()
+				-- Конфиг
+				require("themery").setup({
+					themes = { "dracula" },
+					livePreview = true,
+				})
+			end
+		},
+		-- Прозрачный фон
+		{
+			"xiyaowong/transparent.nvim",
+			config = function()
+				-- Конфиг
+				require("transparent").setup({
+					-- Элементы которые сделать прозрачными
+					extra_groups = { "NormalFloat", "NvimTreeNormal" },
+				})
+			end
+		},
+		-- Treesitter
+		{
+			'nvim-treesitter/nvim-treesitter',
+			lazy = false,
+			build = ':TSUpdate',
+			config = function()
+				-- Конфиг
+				require("nvim-treesitter").setup({
+					-- Список языков
+					ensure_installed = { "lua", "vim", "vimdoc", "bash", "python", "javascript" },
+
+					highlight = { enable = true, },
+					-- Отступы
+					indent = { enable = true, },
+				})
+			end
+		},
+		-- Дерево
+		{
+			"nvim-tree/nvim-tree.lua",
+			version = "*",
+			lazy = false,
+			dependencies = { "nvim-tree/nvim-web-devicons", },
+			config = function()
+				-- Конфиг
+				require("nvim-tree").setup({
+					view = {
+						width = 30,
+						side = "left",
+					},
+					filters = { dotfiles = false, },
+				})
+			end,
+		},
+		-- LSP
+		{
+			"neovim/nvim-lspconfig",
+			dependencies = {
+				"williamboman/mason.nvim",
+				"williamboman/mason-lspconfig.nvim",
+			},
+			config = function()
+				require("mason").setup()
+
+					-- Функция привязки (теперь пустая)
+					local on_attach = function(client, bufnr)
+					-- Здесь раньше был navic.attach
+				end
+
+				-- Авто-настройка всех серверов через Mason
+				require("mason-lspconfig").setup({
+					ensure_installed = { "lua_ls", "bashls", "pyright" },
+					handlers = {
+						function(server_name)
+							local opts = { on_attach = on_attach }
+							if server_name == "lua_ls" then
+								-- Фикс для распознавания проекта (нужен для LSP)
+								opts.root_dir = require("lspconfig.util").root_pattern(".luarc.json", ".git", "init.lua")
+								opts.settings = { Lua = { diagnostics = { globals = { "vim" } } } }
+							end
+							require("lspconfig")[server_name].setup(opts)
+						end,
+					},
+				})
+			end
+		},
+		{
+			"hrsh7th/nvim-cmp",
+			lazy = false, -- Загружаем сразу, чтобы работал на старте
+			dependencies = {
+				"hrsh7th/cmp-nvim-lsp", -- Источник: данные от LSP
+				"hrsh7th/cmp-buffer",   -- Источник: слова из текущего буфера
+				"hrsh7th/cmp-path",     -- Источник: пути к файлам
+			},
+			config = function()
+				local cmp = require("cmp")
+				local luasnip = require("luasnip") -- Будет нужен для сниппетов
+				cmp.setup({
+					-- Источники подсказок
+					sources = cmp.config.sources({
+						{ name = "nvim_lsp" },
+						{ name = "buffer" },
+						{ name = "path" },
+					}),
+					-- Горячие клавиши
+					mapping = cmp.mapping.preset.insert({
+						['<C-Space>'] = cmp.mapping.complete(), -- Вызвать автодополнение вручную
+						['<CR>'] = cmp.mapping.confirm({ select = true }), -- Выбрать/вставить подсказку
+						['<Tab>'] = cmp.mapping.select_next_item(), -- Переход по списку
+						['<S-Tab>'] = cmp.mapping.select_prev_item(), -- Переход по списку
+					}),
+					-- Визуал
+					completion = {
+						completeopt = "menu,menuone,noselect",
+					},
+					window = {
+						completion = cmp.config.window.bordered(),
+						documentation = cmp.config.window.bordered(),
+					},
+				})
+			end
+		},
+		-- Добавляем плагин для сниппетов (хотя бы базу)
+		{
+			"L3MON4D3/LuaSnip",
+			dependencies = { "rafamadriz/friendly-snippets" },
+			build = "make install_jsregexp",
+		},
+		{
+			"SmiteshP/nvim-navic",
+			lazy = false,
+			config = function(_, opts)
+				vim.g.navic_silence = true
+				navic.setup(opts)
+				snacks.util.lsp.on({ method = "textDocument/documentSymbol" }, 
+				function(buffer, client)
+					require("nvim-navic").attach(client, buffer)
+				end)
+				local navic = require("nvim-navic")
+			end,
+			opts = {
+				separator = " > ",
+				highlight = true,
+				depth_limit = 5,
+				lazy_update_context = true,
+			
+			}
+		},
+		{
+  			"folke/snacks.nvim",
+  			priority = 1000,
+  			lazy = false,
+  			---@type snacks.Config
+			opts = {
+				winbar = { enabled = true },
+				navic = { enabled = true }, 
+				bigfile = { enabled = true },
+				dashboard = { enabled = true },
+				explorer = { enabled = true },
+    				indent = { enabled = true },
+    				input = { enabled = true },
+    				picker = { enabled = true },
+    				notifier = { enabled = true },
+    				quickfile = { enabled = true },
+    				scope = { enabled = true },
+    				scroll = { enabled = true },
+    				statuscolumn = { enabled = true },
+    				words = { enabled = true },
+			}
+			--	config = function()
+			--		vim.o.winbar = true -- Включаем winbar, остальное сделает snacks
+			--	end,
+		},
+	}
+})
+
+-- Бинды
+vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>', { silent = true })
