@@ -3,6 +3,8 @@
 - `<leader> sv`     : Reload current config (with notify)
 - `<leader> ch`     : This window (Cheat Sheet)
 - `Space `          : Leader key
+- `Tab / Shift+Tab` : Next suggestion / Previous suggestion (in insert mode) 
+- `Enter`           : Accept suggestion
 
 ### Files and Windows ###
 - `<leader> e`      : File Explorer (NvimTree)

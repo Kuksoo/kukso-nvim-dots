@@ -31,10 +31,10 @@ return {
         "saghen/blink.cmp",
         version = "*",
         opts = {
-            keymap = { 
+            keymap = {
 				preset = 'none',
-				['<Tab>'] = { 'accept', 'fallback' },
-                ['<C-Tab>'] = { 'select_next', 'fallback' },
+				['<Enter>'] = { 'accept', 'fallback' },
+                ['<Tab>'] = { 'select_next', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'fallback' },
 			},
             sources = {
