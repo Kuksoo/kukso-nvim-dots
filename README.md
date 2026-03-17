@@ -21,5 +21,5 @@
 
 # Installation:
 **Arch:**
-`sudo pacman -S neovim git make unzip gcc ttf-jetbrains-mono-nerd`
-`git clone https://github.com/Kuksoo/kukso-nvim-dots/ && mkdir ~/.config/nvim && mv kukso-nvim-dots ~/.config/nvim`
+- `sudo pacman -S neovim git make unzip gcc ttf-jetbrains-mono-nerd`
+- `git clone https://github.com/Kuksoo/kukso-nvim-dots/ && mkdir ~/.config/nvim && mv kukso-nvim-dots ~/.config/nvim`
