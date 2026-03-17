@@ -23,3 +23,6 @@
 # Dependencies:
 - System: `neovim`, `git`, `make`, `unzip`, `gcc`
 - Fonts: `JetBrainsMono Nerd Font`
+
+# Cheat sheet:
+- (config/cheatsheet.md)
