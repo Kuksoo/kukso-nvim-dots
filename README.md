@@ -20,4 +20,4 @@
 - Fonts: JetBrainsMono Nerd Font
 
 # Installation:
-*Arch
+* Arch
