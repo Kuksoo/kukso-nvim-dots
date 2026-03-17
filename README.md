@@ -11,7 +11,7 @@
 # Installation:
 **Arch:**
 - `sudo pacman -S neovim git make unzip gcc ttf-jetbrains-mono-nerd`
-- `git clone https://github.com/Kuksoo/kukso-nvim-dots/ && mkdir ~/.config/nvim && mv kukso-nvim-dots ~/.config/nvim`
+- `git clone https://github.com/Kuksoo/kukso-nvim-dots/ ~/.config/nvim`
 
 # Plugins:
 - Plugin manager: `lazy.nvim`
@@ -24,5 +24,7 @@
 - System: `neovim`, `git`, `make`, `unzip`, `gcc`
 - Fonts: `JetBrainsMono Nerd Font`
 
-# Cheat sheet:
-- (config/cheatsheet.md)
+# Keybinds
+- **Leader key:** `space`
+- **Open cheat sheet:** `<leader> ch`
+- **Smart find:** `<leader> <space>`
