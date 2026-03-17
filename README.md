@@ -6,6 +6,7 @@
 - Smart search
 - Cheat sheet
 - Theme selector
+- Simple and fast
 
 # Plugins:
 - Plugin manager: lazy.nvim
@@ -17,3 +18,6 @@
 # Dependencies:
 - System: neovim, git, make, unzip, gcc
 - Fonts: JetBrainsMono Nerd Font
+
+# Installation:
+*Arch
