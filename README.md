@@ -9,10 +9,10 @@ Theme selector
 
 # Plugins
 Plugin manager: lazy.nvim
-Utilities: snacks.nvim, mini.nvim, mini.icons
-Lsp & completion: nvim-lspconfig blink.cmp, mason.nvim, mason-lspconfig.nvim, lazydev.nvim
-Interface: dracula.nvim, everforest, themery.nvim, transparent.nvim, bufferline.nvim, nvim-web-devicons
-Navigation & syntaxis: nvim-tree.lua, nvim-treesitter, nvim-navic
+\n Utilities: snacks.nvim, mini.nvim, mini.icons
+\n Lsp & completion: nvim-lspconfig blink.cmp, mason.nvim, mason-lspconfig.nvim, lazydev.nvim
+\n Interface: dracula.nvim, everforest, themery.nvim, transparent.nvim, bufferline.nvim, nvim-web-devicons
+\n Navigation & syntaxis: nvim-tree.lua, nvim-treesitter, nvim-navic
 
 # Dependencies
 System: neovim, git, make, unzip, gcc
