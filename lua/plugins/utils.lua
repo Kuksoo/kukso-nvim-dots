@@ -30,4 +30,7 @@ return{
     	require("mini.pairs").setup()
     end,
 	},
+	{
+		"elkowar/yuck.vim"
+	},
 }
